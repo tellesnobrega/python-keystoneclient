@@ -284,3 +284,59 @@ class CrudTests(object):
 
         self.stub_entity(httpretty.DELETE, id=ref['id'], status=204)
         self.manager.delete(ref['id'])
+        
+
+class QuotaCrudTests(object):
+    key = None
+    collection_key = None
+    model = None
+    manager = None
+    path_prefix = None
+    complement = None
+
+    def new_ref(self, **kwargs):
+        kwargs.setdefault('id', uuid.uuid4().hex)
+        return kwargs
+
+    def encode(self, entity):
+        if isinstance(entity, dict):
+            return {self.key: entity}
+        if isinstance(entity, list):
+            return {self.collection_key: entity}
+        raise NotImplementedError('Are you sure you want to encode that?')
+
+    def stub_entity(self, method, parts=None, entity=None, id=None, **kwargs):
+        if entity:
+            entity = self.encode(entity)
+            kwargs['json'] = entity
+
+        if not parts:
+            parts = [self.collection_key]
+
+            if self.path_prefix:
+                parts.insert(0, self.path_prefix)
+
+        if id:
+            if not parts:
+                parts = []
+
+            parts.append(id)
+
+        self.stub_url(method, parts=parts, **kwargs)
+
+    def assertEntityRequestBodyIs(self, entity):
+        self.assertRequestBodyIs(json=self.encode(entity))
+
+    @httpretty.activate
+    def test_get(self, ref=None):
+        ref = ref or self.new_ref()
+
+        self.stub_entity(httpretty.GET, id=ref['id'], entity=ref)
+
+        returned = self.manager.get(ref['id'])
+        self.assertTrue(isinstance(returned, self.model))
+        for attr in ref:
+            self.assertEqual(
+                getattr(returned, attr),
+                ref[attr],
+                'Expected different %s' % attr)

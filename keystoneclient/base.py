@@ -131,6 +131,18 @@ class Manager(object):
         """
         resp, body = self.client.get(url)
         return self.resource_class(self, body[response_key], loaded=True)
+    
+    def _get_with_body(self, url, body, response_key):
+        """Get an object from collection.
+
+        :param url: a partial URL, e.g., '/servers'
+        :param body: data that will be encoded as JSON and passed in GET
+            request
+        :param response_key: the key to be looked up in response dictionary,
+            e.g., 'server'
+        """
+        resp, body = self.client.get(url,body=body)
+        return self.resource_class(self, body[response_key], loaded=True)
 
     def _head(self, url):
         """Retrieve request headers for an object.
@@ -278,6 +290,7 @@ class CrudManager(Manager):
     collection_key = None
     key = None
     base_url = None
+    complement = None
 
     def build_url(self, dict_args_in_out=None):
         """Builds a resource URL for the given kwargs.
@@ -307,7 +320,12 @@ class CrudManager(Manager):
         entity_id = dict_args_in_out.pop('%s_id' % self.key, None)
         if entity_id is not None:
             url += '/%s' % entity_id
-
+        
+        # do we have a complement to url?  
+        complement = dict_args_in_out.pop('complement', None)
+        if complement is not None:
+            url += '/%s' % complement
+        
         return url
 
     @filter_kwargs
@@ -322,6 +340,13 @@ class CrudManager(Manager):
     def get(self, **kwargs):
         return self._get(
             self.build_url(dict_args_in_out=kwargs),
+            self.key)
+        
+    @filter_kwargs
+    def get_with_body(self, **kwargs):
+        return self._get_with_body(
+            self.build_url(dict_args_in_out=kwargs),
+            {self.key: kwargs},
             self.key)
 
     @filter_kwargs
