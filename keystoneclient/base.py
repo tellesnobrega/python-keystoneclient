@@ -141,7 +141,7 @@ class Manager(object):
         :param response_key: the key to be looked up in response dictionary,
             e.g., 'server'
         """
-        resp, body = self.client.get(url,body=body)
+        resp, body = self.client.get(url)
         return self.resource_class(self, body[response_key], loaded=True)
 
     def _head(self, url):
