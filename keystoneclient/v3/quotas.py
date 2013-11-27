@@ -30,9 +30,9 @@ class DomainQuotaManager(base.CrudManager):
     collection_key = 'domains'
     key = 'domain'
 
-    def get(self, domain, region=None, services=None):
+    def get(self, domain_id, region=None, services=None):
         return super(DomainQuotaManager, self).get_with_body(
-            domain_id=base.getid(domain),
+            domain_id=base.getid(domain_id),
             region=region,
             services=services,
             complement='quotas')
