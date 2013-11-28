@@ -346,7 +346,7 @@ class CrudManager(Manager):
     def get_with_body(self, **kwargs):
         return self._get_with_body(
             self.build_url(dict_args_in_out=kwargs),
-            {self.key: kwargs},
+            {self.complement: kwargs},
             self.key)
 
     @filter_kwargs
