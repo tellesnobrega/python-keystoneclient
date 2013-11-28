@@ -132,7 +132,7 @@ class Manager(object):
         resp, body = self.client.get(url)
         return self.resource_class(self, body[response_key], loaded=True)
     
-    def _get_with_body(self, url, body, response_key):
+    def _get_with_body(self, url, body, response_key, complement):
         """Get an object from collection.
 
         :param url: a partial URL, e.g., '/servers'
@@ -150,13 +150,10 @@ class Manager(object):
         print body
         print '------------ BODY ----------'
         print '------------ RESP ----------'
-        print '------------ 1 ----------'
-        body[0][response_key]
-        print '------------ 2 ----------'
-        body[1][response_key]
-        print '------------ 3 ----------'
-        print '------------ RESP ----------'
-        return self.resource_class(self, body[response_key][1], loaded=True)
+        body = {complement:body}
+        print body
+        print '------------ RESP ----------' 
+        return self.resource_class(self, body[response_key], loaded=True)
 
     def _head(self, url):
         """Retrieve request headers for an object.
@@ -361,7 +358,8 @@ class CrudManager(Manager):
         return self._get_with_body(
             self.build_url(dict_args_in_out=kwargs),
             {self.complement: kwargs},
-            self.key)
+            self.key,
+            self.complement)
 
     @filter_kwargs
     def head(self, **kwargs):
