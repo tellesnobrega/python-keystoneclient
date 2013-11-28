@@ -150,9 +150,19 @@ class Manager(object):
         print body
         print '------------ BODY ----------'
         print '------------ RESP ----------'
-        print resp
+        print '------------ 1 ----------'
+        body[response_key]
+        print '------------ 2 ----------'
+        body[response_key][1]
+        print '------------ 3 ----------'
+        body[response_key][0]
+        print '------------ 4 ----------'
+        body[0][response_key]
+        print '------------ 5 ----------'
+        body[1][response_key]
+        print '------------ 6 ----------'
         print '------------ RESP ----------'
-        return self.resource_class(self, body, loaded=True)
+        return self.resource_class(self, body[response_key][1], loaded=True)
 
     def _head(self, url):
         """Retrieve request headers for an object.
