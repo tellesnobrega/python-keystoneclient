@@ -153,7 +153,7 @@ class Manager(object):
         body = {complement:body}
         print body
         print '------------ RESP ----------' 
-        return self.resource_class(self, body[response_key], loaded=True)
+        return self.resource_class(self, body, loaded=True)
 
     def _head(self, url):
         """Retrieve request headers for an object.
