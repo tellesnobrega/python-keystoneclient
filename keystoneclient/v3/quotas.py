@@ -28,7 +28,7 @@ class DomainQuotaManager(base.CrudManager):
     """Manager class for manipulating Identity domains."""
     resource_class = DomainQuota
     collection_key = 'domains'
-    key = 'domain'
+    key = 'domain_id'
 
     def get(self, domain_id, region=None, services=None):
         return super(DomainQuotaManager, self).get_with_body(
