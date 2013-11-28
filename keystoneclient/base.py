@@ -143,16 +143,7 @@ class Manager(object):
         """
         resp, body = self.client.get(url,body=body)
         response_key = response_key +'_id'
-        print "-------------RESPONSE_KEY-------------"
-        print response_key
-        print "-------------RESPONSE_KEY-------------"
-        print '------------ BODY ----------'
-        print body
-        print '------------ BODY ----------'
-        print '------------ RESP ----------'
         body = {complement:body}
-        print body
-        print '------------ RESP ----------' 
         return self.resource_class(self, body, loaded=True)
 
     def _head(self, url):
