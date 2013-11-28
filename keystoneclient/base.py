@@ -142,7 +142,7 @@ class Manager(object):
             e.g., 'server'
         """
         resp, body = self.client.get(url,body=body)
-        
+        response_key = response_key +'_id'
         print "-------------RESPONSE_KEY-------------"
         print response_key
         print "-------------RESPONSE_KEY-------------"
