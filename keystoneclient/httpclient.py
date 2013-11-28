@@ -116,6 +116,9 @@ def request(url, method='GET', headers=None, original_ip=None, debug=False,
         print '----------- METHOD -----------'
         print method
         print '------------------------------'        
+        print '----------- KWARGS -----------'
+        print kwargs
+        print '------------------------------'
         resp = requests.request(
             method,
             url,
