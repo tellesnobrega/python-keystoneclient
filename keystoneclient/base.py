@@ -142,6 +142,9 @@ class Manager(object):
             e.g., 'server'
         """
         resp, body = self.client.get(url,body=body)
+        print '------------ BODY ----------'
+        print body
+        print '------------ BODY ----------'
         return self.resource_class(self, body[response_key], loaded=True)
 
     def _head(self, url):
