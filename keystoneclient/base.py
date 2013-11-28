@@ -142,6 +142,10 @@ class Manager(object):
             e.g., 'server'
         """
         resp, body = self.client.get(url,body=body)
+        
+        print "-------------RESPONSE_KEY-------------"
+        print response_key
+        print "-------------RESPONSE_KEY-------------"
         print '------------ BODY ----------'
         print body
         print '------------ BODY ----------'
