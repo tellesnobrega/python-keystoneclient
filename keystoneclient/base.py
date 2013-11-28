@@ -149,6 +149,9 @@ class Manager(object):
         print '------------ BODY ----------'
         print body
         print '------------ BODY ----------'
+        print '------------ RESP ----------'
+        print resp
+        print '------------ RESP ----------'
         return self.resource_class(self, body, loaded=True)
 
     def _head(self, url):
