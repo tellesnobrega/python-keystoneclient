@@ -151,11 +151,11 @@ class Manager(object):
         print '------------ BODY ----------'
         print '------------ RESP ----------'
         print '------------ 1 ----------'
-        body[response_key]
+        body[response_key][0]
         print '------------ 2 ----------'
         body[response_key][1]
         print '------------ 3 ----------'
-        body[response_key][0]
+        body[response_key]
         print '------------ 4 ----------'
         body[0][response_key]
         print '------------ 5 ----------'
