@@ -105,20 +105,6 @@ def request(url, method='GET', headers=None, original_ip=None, debug=False,
             logger.debug("REQ BODY: %s\n" % data)
 
     try:
-        print '----------- DEBUG ------------'
-        print '------------------------------'
-        print '---------- HEADERS -----------'
-        print headers
-        print '------------------------------'
-        print '------------- URL ------------'
-        print url
-        print '------------------------------'
-        print '----------- METHOD -----------'
-        print method
-        print '------------------------------'        
-        print '----------- KWARGS -----------'
-        print kwargs
-        print '------------------------------'
         resp = requests.request(
             method,
             url,
