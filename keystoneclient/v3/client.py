@@ -25,9 +25,11 @@ from keystoneclient.v3 import endpoints
 from keystoneclient.v3 import groups
 from keystoneclient.v3 import policies
 from keystoneclient.v3 import projects
+from keystoneclient.v3 import quotas
 from keystoneclient.v3 import roles
 from keystoneclient.v3 import services
 from keystoneclient.v3 import users
+
 
 
 _logger = logging.getLogger(__name__)
@@ -94,6 +96,7 @@ class Client(httpclient.HTTPClient):
         self.credentials = credentials.CredentialManager(self)
         self.endpoints = endpoints.EndpointManager(self)
         self.domains = domains.DomainManager(self)
+        self.domainQuotas = quotas.DomainQuotaManager(self)
         self.groups = groups.GroupManager(self)
         self.policies = policies.PolicyManager(self)
         self.projects = projects.ProjectManager(self)
