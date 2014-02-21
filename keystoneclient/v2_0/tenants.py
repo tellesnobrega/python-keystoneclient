@@ -75,10 +75,12 @@ class TenantManager(base.ManagerWithFind):
     def get(self, tenant_id):
         return self._get("/tenants/%s" % tenant_id, "tenant")
 
-    def create(self, tenant_name, description=None, enabled=True, **kwargs):
+    def create(self, tenant_name, description=None, enabled=True,
+               parent_project_id=None, **kwargs):
         """Create a new tenant."""
         params = {"tenant": {"name": tenant_name,
                              "description": description,
+                             "parent_project_id": parent_project_id,
                              "enabled": enabled}}
 
         #Allow Extras Passthru and ensure we don't clobber primary arguments.

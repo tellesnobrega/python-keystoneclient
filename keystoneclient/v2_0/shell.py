@@ -192,12 +192,15 @@ def do_tenant_get(kc, args):
            help='New tenant name (must be unique)')
 @utils.arg('--description', metavar='<tenant-description>', default=None,
            help='Description of new tenant (default is none)')
+@utils.arg('--parent_project_id', metavar='<parent-project-id>',
+           default=None, help='Parent project ID for project')
 @utils.arg('--enabled', metavar='<true|false>', default=True,
            help='Initial tenant enabled status (default true)')
 def do_tenant_create(kc, args):
     """Create new tenant."""
     tenant = kc.tenants.create(args.name,
                                description=args.description,
+                               parent_project_id=args.parent_project_id,
                                enabled=strutils.bool_from_string(args.enabled))
     utils.print_dict(tenant._info)
 
