@@ -26,7 +26,8 @@ This WSGI component:
 * Collects and forwards identity information based on a valid token
   such as user name, tenant, etc
 
-Refer to: http://keystone.openstack.org/middlewarearchitecture.html
+Refer to: http://docs.openstack.org/developer/python-keystoneclient/
+middlewarearchitecture.html
 
 HEADERS
 -------
@@ -625,6 +626,7 @@ class AuthProtocol(object):
             'X-Domain-Name',
             'X-Project-Id',
             'X-Project-Name',
+	    'X-Project-Hierarchy',
             'X-Project-Domain-Id',
             'X-Project-Domain-Name',
             'X-User-Id',
@@ -889,6 +891,7 @@ class AuthProtocol(object):
         domain_name = None
         project_id = None
         project_name = None
+        project_hierarchy = None
         user_domain_id = None
         user_domain_name = None
         project_domain_id = None
@@ -919,6 +922,7 @@ class AuthProtocol(object):
             elif 'project' in token:
                 project_id = token['project']['id']
                 project_name = token['project']['name']
+                project_hierarchy = token['project']['hierarchy']
                 project_domain_id = token['project']['domain']['id']
                 project_domain_name = token['project']['domain']['name']
 
@@ -931,6 +935,7 @@ class AuthProtocol(object):
             'X-Domain-Name': domain_name,
             'X-Project-Id': project_id,
             'X-Project-Name': project_name,
+            'X-Project-Hierarchy': project_hierarchy,
             'X-Project-Domain-Id': project_domain_id,
             'X-Project-Domain-Name': project_domain_name,
             'X-User-Id': user_id,
