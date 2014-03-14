@@ -626,7 +626,7 @@ class AuthProtocol(object):
             'X-Domain-Name',
             'X-Project-Id',
             'X-Project-Name',
-	    'X-Project-Hierarchy',
+            'X-Project-Hierarchy',
             'X-Project-Domain-Id',
             'X-Project-Domain-Name',
             'X-User-Id',
